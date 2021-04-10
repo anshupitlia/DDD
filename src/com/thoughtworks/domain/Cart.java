@@ -1,5 +1,7 @@
 package com.thoughtworks.domain;
 
+import com.thoughtworks.domain.domain_service.ProductFetcher;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ public class Cart {
 
     private List<Item> items= new ArrayList();
     private List<String> deletedItems =new ArrayList<>();
+    private boolean isCheckedOut;
 
     public void add(Item item)
     {
@@ -26,6 +29,11 @@ public class Cart {
 
     public List<Item> getItems() {
         return items;
+    }
+
+    public Order checkout() {
+        isCheckedOut = true;
+        return new Order(ProductFetcher.getProducts(this.items));
     }
 
     @Override
